@@ -321,9 +321,6 @@
                 <configuration>
                     <ratchetFrom>origin/main</ratchetFrom>
                     <java>
-                        <includes>
-                            <include>target/generated-sources/openapi/src/main/java/**/*.java</include>
-                        </includes>
                         <removeUnusedImports/>
                         <importOrder/>
                         <licenseHeader>
