@@ -15,3 +15,9 @@ The artifact management is done using a MAKE file located in the root folder wit
 2. Open a terminal and run the 'make' command to see the declared targets
 
 ___
+
+## API DEFINITION
+
+With the application running, the API definition can be accesed in the following url: 
+
+http://localhost:11010/api-docs.html

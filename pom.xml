@@ -94,6 +94,13 @@
                 <scope>compile</scope>
             </dependency>
 
+            <!-- SPRINGDOC -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${versions.dependencies.springdoc}</version>
+            </dependency>
+
             <!-- SPRING BOOT -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -161,6 +168,12 @@
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
+        </dependency>
+
+        <!-- SPRINGDOC -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
 
         <!-- SPRING BOOT -->

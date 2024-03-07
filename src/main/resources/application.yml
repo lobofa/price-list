@@ -51,6 +51,8 @@ spring:
     name: price-list
   main:
     allow-bean-definition-overriding: true
+  mvc:
+    static-path-pattern: "/static/**"
 
 #      --- SPRING DATA JPA CONFIGURATION ---
 spring.datasource:
@@ -60,3 +62,16 @@ spring.datasource:
 
 spring.jpa.properties:
   hibernate.dialect: org.hibernate.dialect.H2Dialect
+
+#      --- SPRINGDOC UI CONFIGURATION ---
+springdoc:
+  api-docs:
+    enabled: true
+  enable-hateoas: false
+  swagger-ui:
+    disable-swagger-default-url: true
+    enabled: true
+    path: /api-docs.html
+    operations-sorter: alpha
+    url: /static/openapi/price-list.yml
+  writer-with-default-pretty-printer: true
