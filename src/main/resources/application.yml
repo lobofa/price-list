@@ -1,0 +1,53 @@
+#      --- LOGGING CONFIGURATION ---
+logging:
+  level:
+    root: INFO
+
+#      --- ACTUATOR CONFIGURATION ---
+management.endpoint:
+  env:
+    enabled: true
+  health:
+    enabled: true
+    probes:
+      enabled: true
+    show-components: always
+    show-details: always
+  info:
+    enabled: true
+
+management.endpoints:
+  enabled-by-default: false
+  web:
+    base-path: /manage
+    exposure:
+      include: "*"
+
+management.health:
+  readinessstate:
+    enabled: true
+  livenessstate:
+    enabled: true
+
+management.info:
+  java:
+    enabled: true
+
+management.server:
+  base-path: /
+  port: 11011
+
+#      --- SERVER CONFIGURATION ---
+server:
+  port: 11010
+  servlet:
+    application-display-name: ${spring.application.name}
+    register-default-servlet: true
+  shutdown: graceful
+
+#      --- SPRING CORE CONFIGURATION ---
+spring:
+  application:
+    name: price-list
+  main:
+    allow-bean-definition-overriding: true

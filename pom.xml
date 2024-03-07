@@ -1,0 +1,577 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- PROJECT INFORMATION -->
+    <groupId>com.lobofa</groupId>
+    <artifactId>price-list</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>Price List</name>
+    <description>Maven project containing the elements for the Price List application</description>
+    <inceptionYear>2024</inceptionYear>
+
+    <!-- SOURCE CODE VERSIONING -->
+    <scm>
+        <url>https://github.com/lobofa/price-list</url>
+    </scm>
+
+    <!-- ISSUES TRACKING -->
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/lobofa/price-list/issues</url>
+    </issueManagement>
+
+    <!-- DEVELOPERS -->
+    <developers>
+        <developer>
+            <id>fabian.lobo</id>
+            <email>lobofa@gmail.com</email>
+            <name>Fabian Lobo</name>
+            <roles>
+                <role>DEVELOPER</role>
+            </roles>
+            <timezone>-03</timezone>
+        </developer>
+    </developers>
+
+    <!-- PROPERTIES -->
+    <properties>
+
+        <!-- GENERAL -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- VERSIONS -->
+        <versions.java>17</versions.java>
+
+        <maven.compiler.source>${versions.java}</maven.compiler.source>
+        <maven.compiler.target>${versions.java}</maven.compiler.target>
+
+        <versions.dependencies.lombok>1.18.30</versions.dependencies.lombok>
+        <versions.dependencies.mapstruct>1.5.5.Final</versions.dependencies.mapstruct>
+        <versions.dependencies.spring-boot>3.1.6</versions.dependencies.spring-boot>
+        <versions.dependencies.springdoc>2.2.0</versions.dependencies.springdoc>
+        <versions.dependencies.swagger>2.2.8</versions.dependencies.swagger>
+
+        <versions.plugins.compiler>3.11.0</versions.plugins.compiler>
+        <versions.plugins.jacoco>0.8.10</versions.plugins.jacoco>
+        <versions.plugins.jar>3.3.0</versions.plugins.jar>
+        <versions.plugins.openapi>6.6.0</versions.plugins.openapi>
+        <versions.plugins.spring-boot>3.1.6</versions.plugins.spring-boot>
+        <versions.plugins.spotless>2.33.0</versions.plugins.spotless>
+        <versions.plugins.surefire>3.1.2</versions.plugins.surefire>
+        
+        <!-- MAIN CLASS -->
+        <start-class>com.lobofa.prices.Application</start-class>
+
+    </properties>
+
+    <!-- DEPENDENCY MANAGEMENT -->
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- SWAGGER -->
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${versions.dependencies.swagger}</version>
+                <type>jar</type>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-models</artifactId>
+                <version>${versions.dependencies.swagger}</version>
+                <type>jar</type>
+                <scope>compile</scope>
+            </dependency>
+            
+            <!-- MAPSTRUCT -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${versions.dependencies.mapstruct}</version>
+                <type>jar</type>
+                <scope>compile</scope>
+            </dependency>
+
+            <!-- SPRING BOOT -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${versions.dependencies.spring-boot}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- DEPENDENCIES -->
+    <dependencies>
+
+        <!-- JACKSON -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+        </dependency>
+
+        <!-- SPRINGFOX-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>3.0.0</version>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- SWAGGER -->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-models</artifactId>
+        </dependency>
+
+        <!-- JAVA LIBRARIES -->
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+        </dependency>
+
+        <!-- H2 -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        
+        <!-- MAPSTRUCT -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+
+        <!-- SPRING BOOT -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        
+        <!--TESTING DEPENDENCIES -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <!-- ARTIFACT MANAGEMENT -->
+    <build>
+
+        <!-- ARTIFACT NAME -->
+        <finalName>${project.artifactId}</finalName>
+        
+        <!-- RESOURCE FILTERING -->
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/application*.yml</include>
+                    <include>**/application*.yaml</include>
+                    <include>**/application*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <excludes>
+                    <exclude>**/application*.yml</exclude>
+                    <exclude>**/application*.yaml</exclude>
+                    <exclude>**/application*.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
+        <!-- PLUGIN MANAGEMENT -->
+        <pluginManagement>
+            <plugins>
+
+                <!-- CODE FORMATTER -->
+                <plugin>
+                    <groupId>com.diffplug.spotless</groupId>
+                    <artifactId>spotless-maven-plugin</artifactId>
+                    <version>${versions.plugins.spotless}</version>
+                </plugin>
+
+                <!-- COMPILER -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${versions.plugins.compiler}</version>
+                </plugin>
+
+                <!-- JAR MANAGEMENT -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${versions.plugins.jar}</version>
+                </plugin>
+                
+                <!-- TESTS -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${versions.plugins.surefire}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>${versions.plugins.surefire}</version>
+                </plugin>
+
+                <!-- CODE COVERAGE -->
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${versions.plugins.jacoco}</version>
+                </plugin>
+
+                <!-- OPENAPI CODE GENERATOR -->
+                <plugin>
+                    <groupId>org.openapitools</groupId>
+                    <artifactId>openapi-generator-maven-plugin</artifactId>
+                    <version>${versions.plugins.openapi}</version>
+                </plugin>
+                
+                <!-- SPRING BOOT -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${versions.plugins.spring-boot}</version>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+
+        <!-- PLUGINS -->
+        <plugins>
+
+            <!-- SPOTLESS CODE FORMATTER -->
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+
+                <!-- CONFIGURATION -->
+                <configuration>
+                    <ratchetFrom>origin/main</ratchetFrom>
+                    <java>
+                        <includes>
+                            <include>target/generated-sources/openapi/src/main/java/**/*.java</include>
+                        </includes>
+                        <removeUnusedImports/>
+                        <importOrder/>
+                        <licenseHeader>
+                            <file>${project.basedir}/copyright.txt</file>
+                            <delimiter>package </delimiter>
+                        </licenseHeader>
+                        <googleJavaFormat>
+                            <version>1.10.0</version>
+                            <style>GOOGLE</style>
+                        </googleJavaFormat>
+                    </java>
+                </configuration>
+
+                <!-- EXECUTIONS -->
+                <executions>
+                    <execution>
+                        <?m2e execute onConfiguration,onIncremental?>
+                        <id>reformat-code</id>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- COMPILER -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+
+                <!-- CONFIGURATION -->
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${versions.dependencies.lombok}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${versions.dependencies.mapstruct}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>0.2.0</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <compilerArgs>
+                        <arg>-Xmaxerrs</arg>
+                        <arg>1000</arg>
+                        <arg>-Xlint</arg>
+                        <arg>-J-Duser.language=en_us</arg>
+                        <arg>-Amapstruct.suppressGeneratorTimestamp=true</arg>
+                        <arg>-Amapstruct.suppressGeneratorVersionInfoComment=true</arg>
+                        <arg>-Amapstruct.defaultComponentModel=spring</arg>
+                        <arg>-Amapstruct.verbose=true</arg>
+                    </compilerArgs>
+                    <fork>true</fork>
+                    <meminitial>128m</meminitial>
+                    <maxmem>512m</maxmem>
+                    <showDeprecation>false</showDeprecation>
+                    <showWarnings>false</showWarnings>
+                    <source>${versions.java}</source>
+                    <target>${versions.java}</target>
+                </configuration>
+            </plugin>
+
+            <!-- JAR MANAGEMENT -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+
+                <!-- CONFIGURATION -->
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            
+            <!-- UNIT TESTING -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+
+                <!-- CONFIGURATION -->
+                <configuration>
+                    <failIfNoTests>false</failIfNoTests>
+                    <includes>
+                        <include>**/**Test.java</include>
+                        <include>**/**TestSuite.java</include>
+                    </includes>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+
+            <!-- JAVA CODE COVERAGE -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+
+                <!-- CONFIGURATION -->
+                <configuration>
+                    <excludes>
+                        <exclude>**/config/*</exclude>
+                    </excludes>
+                    <haltOnFailure>false</haltOnFailure>
+                    <rules>
+                        <rule>
+                            <element>BUNDLE</element>
+                            <limits>
+                                <limit>
+                                    <counter>INSTRUCTION</counter>
+                                    <value>COVEREDRATIO</value>
+                                    <minimum>0.85</minimum>
+                                </limit>
+                                <limit>
+                                    <counter>CLASS</counter>
+                                    <value>MISSEDCOUNT</value>
+                                    <maximum>0</maximum>
+                                </limit>
+                            </limits>
+                        </rule>
+                        <rule>
+                            <element>PACKAGE</element>
+                            <limits>
+                                <limit>
+                                    <counter>LINE</counter>
+                                    <value>COVEREDRATIO</value>
+                                    <minimum>0.85</minimum>
+                                </limit>
+                            </limits>
+                        </rule>
+                        <rule>
+                            <element>CLASS</element>
+                            <limits>
+                                <limit>
+                                    <counter>LINE</counter>
+                                    <value>COVEREDRATIO</value>
+                                    <minimum>0.85</minimum>
+                                </limit>
+                            </limits>
+                        </rule>
+                    </rules>
+                </configuration>
+
+                <!-- EXECUTIONS -->
+                <executions>
+                    <execution>
+                        <?m2e execute onConfiguration,onIncremental?>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <?m2e execute onConfiguration,onIncremental?>
+                        <id>validate-coverage</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                            <goal>check</goal>
+                            <goal>report</goal>
+                        </goals>
+                        <phase>install</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- CODE GENERATOR -->
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+
+                <!-- CONFIGURATION -->
+                <configuration>
+                    <configOptions>
+                        <artifactDescription>${project.description}</artifactDescription>
+                        <artifactVersion>${project.version}</artifactVersion>
+                        <developerName>fabian.lobo</developerName>
+                        <generatedConstructorWithRequiredArgs>false</generatedConstructorWithRequiredArgs>
+                        <hateoas>false</hateoas>
+                        <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                        <interfaceOnly>true</interfaceOnly>
+                        <library>spring-boot</library>
+                        <oas3>true</oas3>
+                        <openApiNullable>false</openApiNullable>
+                        <reactive>false</reactive>
+                        <serializableModel>true</serializableModel>
+                        <skipDefaultInterface>true</skipDefaultInterface>
+                        <unhandledException>true</unhandledException>
+                        <useBeanValidation>true</useBeanValidation>
+                        <useOptional>true</useOptional>
+                        <useSpringBoot3>true</useSpringBoot3>
+                        <useTags>true</useTags>
+                        <withXml>true</withXml>
+                    </configOptions>
+                    <generatorName>spring</generatorName>
+                    <generateApis>true</generateApis>
+                    <generateModels>true</generateModels>
+                    <generateSupportingFiles>false</generateSupportingFiles>
+                </configuration>
+
+                <!-- EXECUTIONS -->
+                <executions>
+                    <execution>
+                        <id>generate-code</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiPackage>com.lobofa.prices.api.service</apiPackage>
+                            <inputSpec>
+                                ${project.basedir}/src/main/resources/static/openapi/price-list.yml
+                            </inputSpec>
+                            <modelPackage>com.lobofa.prices.api.model</modelPackage>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- SPRING BOOT -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+
+                <!-- CONFIGURATION -->
+                <configuration>
+                    <jvmArguments>
+                        -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=14010
+                    </jvmArguments>
+                </configuration>
+
+                <!-- EXECUTIONS -->
+                <executions>
+                    <execution>
+                        <id>generate-build-info</id>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                    </execution>
+                    <execution>
+                        <id>generate-executable</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <!-- REPORTING -->
+    <reporting>
+        <plugins>
+
+            <!-- UNIT TESTING -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${versions.plugins.surefire}</version>
+            </plugin>
+
+        </plugins>
+    </reporting>
+    
+</project>

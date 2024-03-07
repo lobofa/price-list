@@ -1,0 +1,123 @@
+openapi: "3.0.0"
+info:
+  title: Price List
+  contact:
+    name: Fabián Lobo
+    email: lobofa@gmail.com
+  version: "1.0.0"
+  description: |-
+    ### Release : 1.0.0 
+
+    This API provides standardized mechanism for querying the Price List application
+
+    ### Resources
+    - Price
+
+    This API performs the following operations :
+    - Retrieve a Price instances according to given criteria
+servers:
+  - description: Local
+    url: "http://localhost:8000/services/rest"
+tags:
+  - name: prices
+paths:
+  /price:
+    get:
+      operationId: get-price
+      summary: Get Price
+      description: Returns a Price objects.
+      tags:
+        - prices
+      parameters:
+        - name: product
+          required: true
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            example: 35455
+          description: Product identifier
+        - name: brand
+          required: true
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            example: 1
+          description: Brand identifier
+        - name: date
+          required: true
+          in: query
+          schema:
+            type: string
+            format: date-time
+            example: "2023-01-01T10:00:00"
+          description: Price Date
+      responses:
+        "200":
+          description: Success
+          content:
+            "application/json":
+              schema:
+               $ref: "#/components/schemas/Price"
+        "400":
+          description: Bad Request
+          content:
+            "application/problem+json":
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        "500":
+          description: Internal Server Error
+          content:
+            "application/problem+json":
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+components:
+  schemas:
+    ErrorMessage:
+      type: object
+      description: Used when an API throws an error
+      properties:
+        title:
+          type: string
+          description: Short error description
+          example: Missing parameter
+        detail:
+          type: string
+          description: More details and corrective actions related to the error which can be shown to a client user.
+          example: The parameter 'product' is not present or has an invalid value
+    Price:
+      type: object
+      description: A price value applied to a given product of a given brand in a specific date and time
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the Price
+          example: 1
+        product:
+          type: string
+          description: Product Identifier
+          example: 1
+        brand:
+          type: string
+          description: Brand Identifier
+          example: 35455
+        price:
+          type: number
+          format: double
+          description: Price value
+          example: 35.55
+        currency:
+          type: string
+          description: ISO currency Identifier
+          example: USD
+        start-date:
+          type: string
+          format: date-time
+          description: Start of the time period, using IETC-RFC-3339 format.
+          example: "2023-01-01T23:31:53"
+        end-date:
+          type: string
+          format: date-time
+          description: End of the time period, using IETC-RFC-3339 format.
+          example: "2023-01-01T23:51:53"
