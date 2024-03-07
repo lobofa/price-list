@@ -60,6 +60,10 @@ spring.datasource:
   username: prices
   password: cHJpY2Vz
 
+spring.h2.console:
+  enabled: true
+  path: /db-console
+
 spring.jpa.properties:
   hibernate.dialect: org.hibernate.dialect.H2Dialect
 

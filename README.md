@@ -21,3 +21,17 @@ ___
 With the application running, the API definition can be accesed in the following url: 
 
 http://localhost:11010/api-docs.html
+
+___
+
+## DB VISUALIZATION
+
+With the application running, the H2 database can be accesed in the following url: 
+
+http://localhost:11010/db-console
+
+With the following parameters:
+
+- JDBC URL: jdbc:h2:mem:prices
+- Username: prices
+- Password: cHJpY2Vz
