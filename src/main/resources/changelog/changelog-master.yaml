@@ -1,0 +1,170 @@
+databaseChangeLog:
+  - preConditions:
+      onFail: HALT
+      onError: HALT
+
+  - changeSet:
+      id: create-table
+      author: fabian.lobo
+      changes:
+        - createTable:
+            schemaName: PUBLIC
+            tableName: PRICES
+            columns:
+              - column:
+                  name: PRICE_LIST
+                  type: int
+                  autoIncrement: true
+                  startWith: 1
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: PRODUCT_ID
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: BRAND_ID
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PRIORITY
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: PRICE
+                  type: DECIMAL(10,2)
+              - column:
+                  name: CURR
+                  type: VARCHAR(3)
+              - column:
+                  name: START_DATE
+                  type: DATETIME
+              - column:
+                  name: END_DATE
+                  type: DATETIME
+
+  - changeSet:
+      id: insert-data
+      author: fabian.lobo
+      changes:
+        - insert:
+            schemaName: PUBLIC
+            tableName: PRICES
+            columns:
+              - column:
+                  name: PRODUCT_ID
+                  valueNumeric: 35455
+              - column:
+                  name: BRAND_ID
+                  valueNumeric: 1
+              - column:
+                  name: PRIORITY
+                  valueNumeric: 0
+              - column:
+                  name: PRICE
+                  valueNumeric: 35.50
+              - column:
+                  name: CURR
+                  value: EUR
+              - column:
+                  name: START_DATE
+                  valueDate: "2020-06-14T00:00:00"
+              - column:
+                  name: END_DATE
+                  valueDate: "2020-12-31T23:59:59"
+        - insert:
+            schemaName: PUBLIC
+            tableName: PRICES
+            columns:
+              - column:
+                  name: PRODUCT_ID
+                  valueNumeric: 35455
+              - column:
+                  name: BRAND_ID
+                  valueNumeric: 1
+              - column:
+                  name: PRIORITY
+                  valueNumeric: 1
+              - column:
+                  name: PRICE
+                  valueNumeric: 25.45
+              - column:
+                  name: CURR
+                  value: EUR
+              - column:
+                  name: START_DATE
+                  valueDate: "2020-06-14T15:00:00"
+              - column:
+                  name: END_DATE
+                  valueDate: "2020-06-14T18:30:00"
+        - insert:
+            schemaName: PUBLIC
+            tableName: PRICES
+            columns:
+              - column:
+                  name: PRODUCT_ID
+                  valueNumeric: 35455
+              - column:
+                  name: BRAND_ID
+                  valueNumeric: 1
+              - column:
+                  name: PRIORITY
+                  valueNumeric: 1
+              - column:
+                  name: PRICE
+                  valueNumeric: 30.50
+              - column:
+                  name: CURR
+                  value: EUR
+              - column:
+                  name: START_DATE
+                  valueDate: "2020-06-15T00:00:00"
+              - column:
+                  name: END_DATE
+                  valueDate: "2020-06-15T11:00:00"
+        - insert:
+            schemaName: PUBLIC
+            tableName: PRICES
+            columns:
+              - column:
+                  name: PRODUCT_ID
+                  valueNumeric: 35455
+              - column:
+                  name: BRAND_ID
+                  valueNumeric: 1
+              - column:
+                  name: PRIORITY
+                  valueNumeric: 1
+              - column:
+                  name: PRICE
+                  valueNumeric: 38.95
+              - column:
+                  name: CURR
+                  value: EUR
+              - column:
+                  name: START_DATE
+                  valueDate: "2020-06-15T16:00:00"
+              - column:
+                  name: END_DATE
+                  valueDate: "2020-12-31T23:59:59"
+
+  - changeSet:
+      id: create-index
+      author: fabian.lobo
+      changes:
+        - createIndex:
+            schemaName: PUBLIC
+            tableName: PRICES
+            indexName: IDX_PRICES
+            columns:
+              - column:
+                  name: PRODUCT_ID
+              - column:
+                  name: BRAND_ID
+              - column:
+                  name: START_DATE
+              - column:
+                  name: END_DATE
