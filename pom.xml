@@ -47,15 +47,12 @@
         <maven.compiler.target>${versions.java}</maven.compiler.target>
 
         <versions.dependencies.lombok>1.18.30</versions.dependencies.lombok>
-        <versions.dependencies.mapstruct>1.5.5.Final</versions.dependencies.mapstruct>
         <versions.dependencies.spring-boot>3.1.6</versions.dependencies.spring-boot>
         <versions.dependencies.springdoc>2.2.0</versions.dependencies.springdoc>
-        <versions.dependencies.swagger>2.2.8</versions.dependencies.swagger>
 
         <versions.plugins.compiler>3.11.0</versions.plugins.compiler>
         <versions.plugins.jacoco>0.8.10</versions.plugins.jacoco>
         <versions.plugins.jar>3.3.0</versions.plugins.jar>
-        <versions.plugins.openapi>6.6.0</versions.plugins.openapi>
         <versions.plugins.spring-boot>3.1.6</versions.plugins.spring-boot>
         <versions.plugins.spotless>2.33.0</versions.plugins.spotless>
         <versions.plugins.surefire>3.1.2</versions.plugins.surefire>
@@ -68,31 +65,6 @@
     <!-- DEPENDENCY MANAGEMENT -->
     <dependencyManagement>
         <dependencies>
-
-            <!-- SWAGGER -->
-            <dependency>
-                <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>${versions.dependencies.swagger}</version>
-                <type>jar</type>
-                <scope>compile</scope>
-            </dependency>
-            <dependency>
-                <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-models</artifactId>
-                <version>${versions.dependencies.swagger}</version>
-                <type>jar</type>
-                <scope>compile</scope>
-            </dependency>
-            
-            <!-- MAPSTRUCT -->
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>${versions.dependencies.mapstruct}</version>
-                <type>jar</type>
-                <scope>compile</scope>
-            </dependency>
 
             <!-- SPRINGDOC -->
             <dependency>
@@ -126,24 +98,6 @@
             <artifactId>jackson-dataformat-yaml</artifactId>
         </dependency>
 
-        <!-- SPRINGFOX-->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>3.0.0</version>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- SWAGGER -->
-        <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-models</artifactId>
-        </dependency>
-
         <!-- JAVA LIBRARIES -->
         <dependency>
             <groupId>jakarta.annotation</groupId>
@@ -168,12 +122,6 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-        </dependency>
-
-        <!-- MAPSTRUCT -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
         </dependency>
 
         <!-- LOMBOK -->
@@ -291,13 +239,6 @@
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${versions.plugins.jacoco}</version>
                 </plugin>
-
-                <!-- OPENAPI CODE GENERATOR -->
-                <plugin>
-                    <groupId>org.openapitools</groupId>
-                    <artifactId>openapi-generator-maven-plugin</artifactId>
-                    <version>${versions.plugins.openapi}</version>
-                </plugin>
                 
                 <!-- SPRING BOOT -->
                 <plugin>
@@ -360,26 +301,12 @@
                             <artifactId>lombok</artifactId>
                             <version>${versions.dependencies.lombok}</version>
                         </path>
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>${versions.dependencies.mapstruct}</version>
-                        </path>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok-mapstruct-binding</artifactId>
-                            <version>0.2.0</version>
-                        </path>
                     </annotationProcessorPaths>
                     <compilerArgs>
                         <arg>-Xmaxerrs</arg>
                         <arg>1000</arg>
                         <arg>-Xlint</arg>
                         <arg>-J-Duser.language=en_us</arg>
-                        <arg>-Amapstruct.suppressGeneratorTimestamp=true</arg>
-                        <arg>-Amapstruct.suppressGeneratorVersionInfoComment=true</arg>
-                        <arg>-Amapstruct.defaultComponentModel=spring</arg>
-                        <arg>-Amapstruct.verbose=true</arg>
                     </compilerArgs>
                     <fork>true</fork>
                     <meminitial>128m</meminitial>
@@ -492,58 +419,6 @@
                             <goal>report</goal>
                         </goals>
                         <phase>install</phase>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- CODE GENERATOR -->
-            <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-
-                <!-- CONFIGURATION -->
-                <configuration>
-                    <configOptions>
-                        <artifactDescription>${project.description}</artifactDescription>
-                        <artifactVersion>${project.version}</artifactVersion>
-                        <developerName>fabian.lobo</developerName>
-                        <generatedConstructorWithRequiredArgs>false</generatedConstructorWithRequiredArgs>
-                        <hateoas>false</hateoas>
-                        <hideGenerationTimestamp>true</hideGenerationTimestamp>
-                        <interfaceOnly>true</interfaceOnly>
-                        <library>spring-boot</library>
-                        <oas3>true</oas3>
-                        <openApiNullable>false</openApiNullable>
-                        <reactive>false</reactive>
-                        <serializableModel>true</serializableModel>
-                        <skipDefaultInterface>true</skipDefaultInterface>
-                        <unhandledException>true</unhandledException>
-                        <useBeanValidation>true</useBeanValidation>
-                        <useOptional>true</useOptional>
-                        <useSpringBoot3>true</useSpringBoot3>
-                        <useTags>true</useTags>
-                        <withXml>true</withXml>
-                    </configOptions>
-                    <generatorName>spring</generatorName>
-                    <generateApis>true</generateApis>
-                    <generateModels>true</generateModels>
-                    <generateSupportingFiles>false</generateSupportingFiles>
-                </configuration>
-
-                <!-- EXECUTIONS -->
-                <executions>
-                    <execution>
-                        <id>generate-code</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <apiPackage>com.lobofa.prices.api.service</apiPackage>
-                            <inputSpec>
-                                ${project.basedir}/src/main/resources/static/openapi/price-list.yml
-                            </inputSpec>
-                            <modelPackage>com.lobofa.prices.api.model</modelPackage>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
