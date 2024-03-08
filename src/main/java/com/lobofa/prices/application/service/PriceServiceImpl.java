@@ -15,7 +15,7 @@ import com.lobofa.prices.domain.Price;
 import com.lobofa.prices.exception.NotFoundException;
 import com.lobofa.prices.infra.database.repository.PriceRepository;
 import jakarta.annotation.PostConstruct;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +34,10 @@ public class PriceServiceImpl implements PriceService {
   }
 
   @Override
-  public Price getPrice(Integer product, Integer brand, OffsetDateTime date)
+  public Price getPrice(Integer product, Integer brand, LocalDateTime date)
       throws NotFoundException {
+    log.info(
+        "Looking price for the given values [Product {}, Brand {}, Date {}]", product, brand, date);
     Optional<Price> result = priceRepository.lookForPrice(product, brand, date);
     if (!result.isPresent()) {
       throw new NotFoundException(product, brand, date);

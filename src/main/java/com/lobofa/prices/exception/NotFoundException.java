@@ -9,7 +9,8 @@
  */
 package com.lobofa.prices.exception;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Class extending the {@link Exception} class to report any error occurred within the platform.
@@ -19,10 +20,10 @@ import java.time.OffsetDateTime;
  */
 public class NotFoundException extends Exception {
 
-  public NotFoundException(Integer product, Integer brand, OffsetDateTime date) {
+  public NotFoundException(Integer product, Integer brand, LocalDateTime date) {
     super(
         String.format(
             "No price was found for the given values[Product %s, Brand %s, Date %s].",
-            product, brand, date));
+            product, brand, date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))));
   }
 }

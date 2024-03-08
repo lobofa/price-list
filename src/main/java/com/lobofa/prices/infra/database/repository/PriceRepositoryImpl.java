@@ -17,7 +17,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
@@ -41,7 +41,7 @@ public class PriceRepositoryImpl extends SimpleJpaRepository<Price, Integer>
   }
 
   @Override
-  public Optional<Price> lookForPrice(Integer product, Integer brand, OffsetDateTime date) {
+  public Optional<Price> lookForPrice(Integer product, Integer brand, LocalDateTime date) {
     final CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
     final CriteriaQuery<Price> query = builder.createQuery(Price.class);
     final Root<Price> root = query.from(Price.class);
@@ -51,12 +51,16 @@ public class PriceRepositoryImpl extends SimpleJpaRepository<Price, Integer>
                 builder.and(
                     builder.equal(root.get("product"), product),
                     builder.equal(root.get("brand"), brand),
-                    builder.greaterThanOrEqualTo(root.get("starDateTime"), date),
-                    builder.lessThanOrEqualTo(root.get("endDateTime"), date)))
+                    builder.lessThanOrEqualTo(root.get("startDateTime"), date),
+                    builder.greaterThanOrEqualTo(root.get("endDateTime"), date)))
             .orderBy(builder.desc(root.get("priority")));
 
-    final Price result =
-        this.entityManager.createQuery(conditions).setMaxResults(1).getSingleResult();
-    return Optional.ofNullable(result);
+    try {
+      final Price result =
+          this.entityManager.createQuery(conditions).setMaxResults(1).getSingleResult();
+      return Optional.of(result);
+    } catch (Throwable e) {
+      return Optional.empty();
+    }
   }
 }

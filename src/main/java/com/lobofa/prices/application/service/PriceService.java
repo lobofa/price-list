@@ -11,7 +11,7 @@ package com.lobofa.prices.application.service;
 
 import com.lobofa.prices.domain.Price;
 import com.lobofa.prices.exception.NotFoundException;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 /**
  * Interface to define the business logic's entry points related with the {@link Price} entity.
@@ -30,5 +30,5 @@ public interface PriceService {
    * @return a {@link Price} entity
    * @throws an {@link NotFoundException} if no records are found
    */
-  Price getPrice(Integer product, Integer brand, OffsetDateTime date) throws NotFoundException;
+  Price getPrice(Integer product, Integer brand, LocalDateTime date) throws NotFoundException;
 }

@@ -66,6 +66,12 @@ paths:
             "application/problem+json":
               schema:
                 $ref: "#/components/schemas/ErrorMessage"
+        "404":
+          description: Not Found
+          content:
+            "application/problem+json":
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
         "500":
           description: Internal Server Error
           content:
@@ -91,15 +97,15 @@ components:
       description: A price value applied to a given product of a given brand in a specific date and time
       properties:
         id:
-          type: string
+          type: integer
           description: Unique identifier of the Price
           example: 1
         product:
-          type: string
+          type: integer
           description: Product Identifier
           example: 1
         brand:
-          type: string
+          type: integer
           description: Brand Identifier
           example: 35455
         price:

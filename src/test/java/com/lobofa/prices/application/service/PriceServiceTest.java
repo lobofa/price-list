@@ -23,7 +23,7 @@ import com.lobofa.prices.domain.Price;
 import com.lobofa.prices.exception.NotFoundException;
 import com.lobofa.prices.infra.database.repository.PriceRepository;
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -45,7 +45,7 @@ public class PriceServiceTest {
 
       final Integer product = 231;
       final Integer brand = 23;
-      final OffsetDateTime date = OffsetDateTime.parse("2024-01-02T23:23:34-03:00");
+      final LocalDateTime date = LocalDateTime.parse("2024-01-02T23:23:34");
 
       final Price price = new Price();
       price.setId(1);
@@ -53,11 +53,11 @@ public class PriceServiceTest {
       price.setProduct(product);
       price.setCurrency("USD");
       price.setPriority(1);
-      price.setStarDateTime(OffsetDateTime.parse("2024-01-02T00:00:00-03:00"));
-      price.setEndDateTime(OffsetDateTime.parse("2024-01-28T23:59:59-03:00"));
+      price.setStartDateTime(LocalDateTime.parse("2024-01-02T00:00:00"));
+      price.setEndDateTime(LocalDateTime.parse("2024-01-28T23:59:59"));
       price.setPrice(new BigDecimal("35.42"));
 
-      when(priceRepository.lookForPrice(anyInt(), anyInt(), any(OffsetDateTime.class)))
+      when(priceRepository.lookForPrice(anyInt(), anyInt(), any(LocalDateTime.class)))
           .thenReturn(Optional.of(price));
 
       final PriceService service = new PriceServiceImpl(priceRepository);
@@ -71,7 +71,7 @@ public class PriceServiceTest {
       assertNotNull(result.getPriority());
       assertNotNull(result.getPrice());
       assertNotNull(result.getCurrency());
-      assertNotNull(result.getStarDateTime());
+      assertNotNull(result.getStartDateTime());
       assertNotNull(result.getEndDateTime());
 
       assertEquals(result.getId(), price.getId());
@@ -80,10 +80,10 @@ public class PriceServiceTest {
       assertEquals(result.getPriority(), price.getPriority());
       assertEquals(result.getPrice(), price.getPrice());
       assertEquals(result.getCurrency(), price.getCurrency());
-      assertEquals(result.getStarDateTime(), price.getStarDateTime());
+      assertEquals(result.getStartDateTime(), price.getStartDateTime());
       assertEquals(result.getEndDateTime(), price.getEndDateTime());
 
-      verify(priceRepository, times(1)).lookForPrice(anyInt(), anyInt(), any(OffsetDateTime.class));
+      verify(priceRepository, times(1)).lookForPrice(anyInt(), anyInt(), any(LocalDateTime.class));
 
     } catch (Exception e) {
       fail(e);
@@ -93,12 +93,12 @@ public class PriceServiceTest {
   @Test
   public void testGetPrice_whenPriceIsNotFound_shouldThrowException() {
 
-    when(priceRepository.lookForPrice(anyInt(), anyInt(), any(OffsetDateTime.class)))
+    when(priceRepository.lookForPrice(anyInt(), anyInt(), any(LocalDateTime.class)))
         .thenReturn(Optional.empty());
 
     final Integer product = 231;
     final Integer brand = 23;
-    final OffsetDateTime date = OffsetDateTime.parse("2024-01-02T23:23:34-03:00");
+    final LocalDateTime date = LocalDateTime.parse("2024-01-02T23:23:34");
 
     final PriceService service = new PriceServiceImpl(priceRepository);
 
