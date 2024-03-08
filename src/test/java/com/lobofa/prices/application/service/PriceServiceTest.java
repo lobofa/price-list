@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -26,8 +27,6 @@ import java.time.OffsetDateTime;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 /**
  * Class for testing the exposed methods in the {@link PriceService} interface
@@ -36,10 +35,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
  * @since 1.0
  * @see PriceService
  */
-@SpringBootTest
 public class PriceServiceTest {
 
-  @MockBean private PriceRepository priceRepository;
+  private PriceRepository priceRepository = mock();
 
   @Test
   public void testGetPrice_whenPriceIsFound_shouldReturnResult() {
