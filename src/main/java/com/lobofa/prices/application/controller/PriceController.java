@@ -23,8 +23,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -48,14 +48,15 @@ import org.springframework.web.bind.annotation.RestController;
   Date.NotNull.class,
   PriceController.class
 })
+@RequiredArgsConstructor
 @RestController
 @Slf4j
 @Validated
 public class PriceController {
 
-  @Autowired private MessageSource messageSource;
+  private final MessageSource messageSource;
 
-  @Autowired private PriceService priceService;
+  private final PriceService priceService;
 
   /**
    * Method to verify that all dependencies and requirements have been set.
